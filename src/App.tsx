@@ -1,20 +1,28 @@
 
 import { Container, Typography, Box} from '@mui/material'
-import './App.css'
-import useRoutineStore from './store/store'
+
+
 import AddRoutineForm from './components/AddRoutineForm'
 import RoutineList from './components/RoutineList'
 
 
 function App() {
  
-  const store = useRoutineStore()
-
-
   return (
-    <Container>
-      <Box>
-        <Typography variant='h2' component='h2' gutterBottom align='centre'>
+    <Container maxWidth="sm"
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      textAlign : "center"
+    }}>
+      <Box sx={{ 
+      textAlign: "center", 
+      width: "100%" 
+    }}>
+        <Typography variant='h2' component='h2' gutterBottom >
           Routine Tracker
         </Typography>
          <AddRoutineForm />

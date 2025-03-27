@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export interface Routine {
     id : string,
@@ -17,7 +18,7 @@ interface RoutineState {
 
 
 
-const useRoutineStore = create<RoutineState>()((set)=>{
+const useRoutineStore = create<RoutineState>()(persist((set)=>{
     return {
         routines : [],
         addRoutine : (name,frequency) => set((state)=>{
@@ -34,11 +35,16 @@ const useRoutineStore = create<RoutineState>()((set)=>{
         removeRoutine : (id) => set((state)=> ({
             routines : state.routines.filter((routine)=> routine.id !== id)
         })),
-        toggleRoutine : (id,date) => set((state)=>{
-                 
-        })
+        toggleRoutine : (id,date) => set((state)=>({
+            routines : state.routines.map((routine)=> routine.id === id ? {
+                    ...routine,
+                    completedDates : routine.completedDates.includes(date) ? (routine.completedDates.filter((d)=> d !== date)) : ([...routine.completedDates,date])
+            } : routine)     
+        }))
     }
-})
+},{
+    name : "routine-local",
+}))
 
 
 export default useRoutineStore;

@@ -1,15 +1,17 @@
-import { Box, Button, Grid, Paper, Typography } from '@mui/material'
+import { Box, Button, Grid, LinearProgress, Paper, Typography } from '@mui/material'
 
-import useRoutineStore from '../store/store'
+import useRoutineStore, { Routine } from '../store/store'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 
 function RoutineList() {
 
-  const {routines , removeRoutine} = useRoutineStore()
+  const {routines , removeRoutine , toggleRoutine} = useRoutineStore()
 
   const today = new Date().toISOString().split("T")[0]
+
+  
 
   return (
     <div>
@@ -23,7 +25,7 @@ function RoutineList() {
               </Grid>
               <Grid xs={12} sm={6}>
                  <Box sx={{display : "flex", justifyContent : "flex-end", gap : 1}}>
-                    <Button variant="outlined" color={routine.completedDates.includes(today) ? "success" : "primary"} startIcon={<CheckCircleIcon />}>
+                    <Button variant="outlined" color={routine.completedDates.includes(today) ? "success" : "primary"} startIcon={<CheckCircleIcon />} onClick={()=>toggleRoutine(routine.id,today)}>
                       {routine.completedDates.includes(today) ? "Completed" : "Mark Complete"}
                     </Button>
                     <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={()=>removeRoutine(routine.id)}>
@@ -32,6 +34,7 @@ function RoutineList() {
                  </Box>
               </Grid>
            </Grid>
+           
         </Paper>
        ))}
       </Box>

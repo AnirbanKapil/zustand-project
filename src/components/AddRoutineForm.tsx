@@ -15,8 +15,8 @@ function AddRoutineForm() {
          e.preventDefault();
          if(name.trim()){
           addRoutine(name,frequency);
-
-         }
+          }
+         setName("") 
     }
     
     return (
@@ -24,7 +24,9 @@ function AddRoutineForm() {
      <Box sx={{
         display : "flex",
         flexDirection : "column",
-        gap : 2
+        gap : 2,
+        textAlign : "center",
+        width: "100%", 
      }}>
        <TextField  
        label="Routine"
